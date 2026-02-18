@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>To My Dear Friend 💙</title>
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+    background: black;
+    color: white;
+    text-align: center;
+}
+
+/* Starry Background */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* Password Screen */
+#passwordScreen {
+    margin-top: 20%;
+}
+
+input {
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Envelope */
+#envelope {
+    display: none;
+    margin-top: 150px;
+    font-size: 80px;
+    cursor: pointer;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%,100%{transform: translateY(0);}
+    50%{transform: translateY(-20px);}
+}
+
+/* Letter */
+#letter {
+    display: none;
+    width: 75%;
+    margin: auto;
+    font-size: 18px;
+    margin-top: 50px;
+    line-height: 1.7;
+}
+
+#counter {
+    margin-top: 20px;
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<div id="passwordScreen">
+    <h2>Enter Special Password 🔐</h2>
+    <input type="password" id="pass" placeholder="Enter Password">
+    <br>
+    <button onclick="checkPassword()">Unlock 💙</button>
+</div>
+
+<div id="envelope">✉️</div>
+
+<div id="letter">
+    <h1>My Dearest Friend 💙</h1>
+    <p id="typing"></p>
+    <div id="counter"></div>
+    <button onclick="showBlessing()">Click for Special Blessing 🎁</button>
+    <p id="blessing"></p>
+</div>
+
+<audio id="music" loop>
+<source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* PASSWORD */
+function checkPassword() {
+    if(document.getElementById("pass").value === "foreverfriend") {
+        document.getElementById("passwordScreen").style.display="none";
+        document.getElementById("envelope").style.display="block";
+    } else {
+        alert("Wrong password 💔");
+    }
+}
+
+/* Envelope Click */
+document.getElementById("envelope").onclick = function() {
+    this.style.display="none";
+    document.getElementById("letter").style.display="block";
+    document.getElementById("music").play();
+    typingEffect();
+}
+
+/* Emotional Friendship + Wedding Message */
+let message = "Some friendships are rare and priceless — and ours is one of them. You have been my strength in silence, my laughter in chaos, and my constant support through every phase of life. Our journey together is filled with countless memories that I will always treasure deeply. \n\nToday, as you begin a beautiful new chapter of your life with your life partner, my heart feels both emotional and incredibly proud. Watching you step into this new journey brings immense happiness to me. You truly deserve a love that understands you, supports you, and walks beside you in every dream you chase. \n\nMay your married life be filled with trust, respect, laughter, and endless companionship. May your home be blessed with peace, warmth, and joy. No matter how life changes around us, our friendship will always remain a special bond in my heart. Congratulations on your new beginning, my dear friend 💍✨";
+
+let i = 0;
+
+function typingEffect() {
+    if (i < message.length) {
+        document.getElementById("typing").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typingEffect, 35);
+    }
+}
+
+/* Friendship Counter */
+let startDate = new Date("2015-06-01"); // Change to your friendship start date
+let today = new Date();
+let days = Math.floor((today - startDate) / (1000*60*60*24));
+document.getElementById("counter").innerHTML =
+"Our friendship has grown beautifully for " + days + " days 💙";
+
+/* Final Blessing */
+function showBlessing() {
+    document.getElementById("blessing").innerHTML =
+    "May this new journey bring you deeper love, stronger understanding, and a lifetime of shared dreams. I will always cheer for you, today and forever 🤍";
+}
+
+/* STAR ANIMATION */
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+
+for(let i=0;i<200;i++){
+    stars.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        radius: Math.random()*1.5,
+        speed: Math.random()*0.5
+    });
+}
+
+function drawStars(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="white";
+    stars.forEach(star=>{
+        ctx.beginPath();
+        ctx.arc(star.x,star.y,star.radius,0,Math.PI*2);
+        ctx.fill();
+        star.y+=star.speed;
+        if(star.y>canvas.height) star.y=0;
+    });
+    requestAnimationFrame(drawStars);
+}
+drawStars();
+
+</script>
+
+</body>
+</html>
